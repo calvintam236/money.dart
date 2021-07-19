@@ -414,9 +414,11 @@ class Money implements Comparable<Money> {
 
   /// Returns `true` if this money value is in the specified [currency].
   bool isInCurrency(String code) => _currency == Currencies().find(code);
+  @Deprecated("Use [Money1.currency == Money2.currency].")
   bool isInCurrencyWithCurrency(Currency currency) => _currency == currency;
 
   /// Returns `true` if this money value is in same currency as [other].
+  @Deprecated("Use [Money1.currency == Money2.currency].")
   bool isInSameCurrencyAs(Money other) =>
       isInCurrencyWithCurrency(other._currency);
 
@@ -557,7 +559,7 @@ class Money implements Comparable<Money> {
     String defaultMessage() =>
         'Cannot operate with money values in different currencies.';
 
-    if (!isInSameCurrencyAs(other)) {
+    if (this._currency != other.currency) {
       throw ArgumentError((message ?? defaultMessage)());
     }
   }
